@@ -1,0 +1,3 @@
+interface VGAMonitor {
+    void displayVGA();
+}
