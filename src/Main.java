@@ -1,37 +1,20 @@
-import java.util.Scanner;
-
 public class Main {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        Computer computer = new Computer();
 
-        System.out.println("Choose a monitor type: (1) VGA Monitor, (2) HDMI Port");
-        int monitorType = scanner.nextInt();
+        Component monitor = new Component("Monitor");
+        Component keyboard = new Component("Keyboard");
+        Component mouse = new Component("Mouse");
 
-        VGAMonitor vgaMonitor = null;
-        HDMI hdmiPort = null;
+        computer.addObserver(monitor);
+        computer.addObserver(keyboard);
+        computer.addObserver(mouse);
 
-        if (monitorType == 1) {
-            vgaMonitor = new ConcreteVGAMonitor();
-        } else if (monitorType == 2) {
-            hdmiPort = new ConcreteHDMIPort();
-        } else {
-            System.out.println("Invalid choice.");
-            scanner.close();
-            return;
-        }
+        computer.setStatus("Power On");
+        computer.setStatus("Booting up");
 
-        if (vgaMonitor == null) {
-            System.out.println("Using HDMI Port:");
-            hdmiPort.displayHDMI();
-        } else {
-            VGAtoHDMIAdapter vgaToHDMIAdapter = new VGAtoHDMIAdapter(vgaMonitor);
+        computer.removeObserver(monitor);
 
-            System.out.println("Using VGA Monitor:");
-            vgaMonitor.displayVGA();
-
-            System.out.println("\nUsing VGA-to-HDMI Adapter:");
-            vgaToHDMIAdapter.displayHDMI();
-        }
-        scanner.close();
+        computer.setStatus("Shutting down");
     }
 }
